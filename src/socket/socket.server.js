@@ -18,8 +18,11 @@ function initSocketServer(httpServer){
 
             await groupModel.create({
                 groupName: groupName,
-                adminId: socket.
+                adminId: socket.id, // Change into user Id From Db
+                members: new Set([socket.id]) //change into user Id from DB
             })
+
+            socket.emit("groupCreated",{groupName, admin: socket.id});
         })
         
     })

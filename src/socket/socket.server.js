@@ -1,19 +1,26 @@
 const { Server } = require("socket.io");
 const chatHandler = require("./chat");
-
+const groupModel = require("../models/group.model");
 
 function initSocketServer(httpServer){
     const io = new Server(httpServer,{});
-
-    const DB = {} // {groupName:{AdminId, members}}
     
+
     io.on("connection",(socket) => {
         console.log("client connected", socket.id);
 
         /* handle user chat */
         chatHandler(io, socket);
 
-        
+        socket.on("createGroup",async (groupName) => {
+            const isGroupAlreadyExist = await groupModel.findOne({groupName: groupName})
+            if(isGroupAlreadyExist) return socket.emit("error", "group is already Exist");
+
+            await groupModel.create({
+                groupName: groupName,
+                adminId: socket.
+            })
+        })
         
     })
 }

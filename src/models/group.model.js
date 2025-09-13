@@ -8,20 +8,23 @@ const groupSchema = new mongoose.Schema(
       unique: true,
     },
     adminId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
       required: true,
     },
-    members: {
-      type: [String],
-      default: [],
-    },
+    members: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+      },
+    ],
   },
   {
     timeseries: true,
   }
 );
 
-
-const groupModel = mongoose.model("group",groupSchema);
+const groupModel = mongoose.model("group", groupSchema);
 
 module.exports = groupModel;

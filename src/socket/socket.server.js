@@ -13,9 +13,7 @@ function initSocketServer(httpServer){
         /* handle user chat */
         chatHandler(io, socket);
 
-        socket.on("CreateGroup",(groupName) => {
-            
-        })
+        
         
     })
 }

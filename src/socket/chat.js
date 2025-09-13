@@ -5,14 +5,14 @@ function chatHandler(io, socket){
             socket.join(room);
             console.log(`${socket.id} joined ${room}`);
 
-            //notify the room that new user joined
+            //broadcasting new user joined
             socket.to(room).emit("message", {
                 from:"server",
                 text:`a new user ${socket.id} joined ${room}`
             })
         })
 
-        //Client sent a chat message
+        //Client sent chat messages
         socket.on("chatMessage", ({ room, message }) => {
             console.log(`Message from ${socket.id} to ${room}: ${message}`);
 
